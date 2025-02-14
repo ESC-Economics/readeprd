@@ -1,15 +1,4 @@
 
-# source("R/read_api.r")
-#
-# #example
-# tango <- read_eprd_metadata(retailer = "tango")
-#
-# all <- read_eprd_metadata(retailer = "all")
-#
-# vicall <- all %>% filter(str_detect(planId, "VEC"))
-# planid <- tango$planId[55]
-# base_uri <- "tango"
-
 
 # Call EPRD API --------------------------------------------------------
 
@@ -126,34 +115,3 @@ read_eprd_plan <- function(base_uri, planid){
 
 }
 
-
-
-# planid <- ids[1]
-#
-# ids <- tango %>%
-#   filter(str_detect(planId, "VEC"),
-#          fuelType == "GAS") %>% pull(planId)
-#
-#
-# a <- read_eprd_plan(base_uri = "tango", planid = ids[1])
-#
-#
-# c <- ids %>%
-#   purrr::map(\(x) read_eprd_plan(base_uri = "tango", planid = x)
-#              ) %>%
-#   bind_rows()
-#
-# c$contract[1]$details %>% tail(20)
-#
-#
-# df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = 1:6, z = 6:1)
-#
-# df <- df %>% nest(data = c(y, z))
-#
-# df$data[[1]]
-#
-# a %>% select(16,18)
-#
-# df %>% str()
-# a %>% select(16,18) %>% str()
-#

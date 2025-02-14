@@ -1,23 +1,5 @@
-## GLOBAL SETTINGS -------------------------------------------------------------
-# rm(list = ls())
-# user <- "C:/Users/MAyala/Essential Services Commission/Economics Team - Documents/"
-# vec_setup <- function(){
-#
-#   library(esctheme)
-#   r_setup()
-#   library(qs)
-#   library(httr2)
-# }
-#
-# vec_setup()
-#
-#
-#
-# #Uniform Resource Identifier
-# baseuris <- base_uris$cdr_brand
+#' Download, extract, and tidy AER Energy plan metadata
 
-
-# Generic Plan Metadata -------------------------------------------------------
 
 # function to store base url
 get_base_url <- function() {

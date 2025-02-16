@@ -105,7 +105,9 @@ tidy_details_to_df <- function(result) {
 
 
 # nest contract details into the plan id
-read_eprd_plan <- function(base_uri, planid){
+read_eprd_plan <- function(base_uri,
+                           planid
+                           ){
 
   plan <- plan_to_df(base_uri, planid) %>%
     dplyr::mutate(contract = list(tidy_details_to_df(contract))

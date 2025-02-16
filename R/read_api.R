@@ -71,9 +71,10 @@ planmeta_to_df <- function(plan){
 
 
 # function that cleans retailer plans metadata
-tidy_planmeta_to_df <- function(baseuris){
+tidy_planmeta_to_df <- function(baseuris, fuel_type = "all"){
 
-  plan_list <- call_eprd_api(api_uri = baseuris)$data$plans
+  plan_list <- call_eprd_api(api_uri = baseuris,
+                             fuel_type = fuel_type)$data$plans
 
   plan_df <- plan_list %>%
     purrr::map(
@@ -88,7 +89,7 @@ tidy_planmeta_to_df <- function(baseuris){
 
 
 # function that reads retailer plan metadata in a single data frame
-read_eprd_metadata <- function(retailer = "all"){
+read_eprd_metadata <- function(retailer = "all", fuel_type = "all"){
 
   if (retailer == "all") {
 
@@ -96,7 +97,7 @@ read_eprd_metadata <- function(retailer = "all"){
 
     d <- purrr::map(
       baseuris,
-      tidy_planmeta_to_df
+      \(x) tidy_planmeta_to_df(baseuris = x, fuel_type = fuel_type)
     ) %>%
       dplyr::bind_rows()
 
@@ -106,7 +107,7 @@ read_eprd_metadata <- function(retailer = "all"){
 
     d <- purrr::map(
       retailer,
-      tidy_planmeta_to_df
+      \(x) tidy_planmeta_to_df(baseuris = x, fuel_type = fuel_type)
     ) %>%
       dplyr::bind_rows()
 

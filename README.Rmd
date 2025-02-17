@@ -1,0 +1,76 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# readeprd
+
+<!-- badges: start -->
+
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange)](https://lifecycle.r-lib.org/articles/stages.html#experimental) [![CRAN status](https://www.r-pkg.org/badges/version/readeprd)](https://CRAN.R-project.org/package=readeprd)
+
+<!-- badges: end -->
+
+The purpose of `readeprd` is to provide access to Consumer Data Rights API so that retail energy plans from AER can be accessed directly from R. For details about what data are provided by the CDR see [here](https://consumerdatastandardsaustralia.github.io/standards/#cdr-energy-api_get-generic-plans).
+
+## Installation
+
+You can install the development version of readeprd with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("ESC-Economics/readeprd")
+```
+
+## Example
+
+You can access all the plan ids available in the market by using the metadata function.
+
+```{r example}
+library(readeprd)
+library(dplyr)
+
+plans <- read_eprd_metadata(retailer = "all")
+
+glimpse(plans)
+```
+
+This example gets data on a specific retailer electricity plans from Victoria. The contract details are nested in the list column `contract`
+
+```{r}
+
+agl <- read_eprd(retailer = "agl",
+                 planid = c("AGD623237MR@VEC", "AGD623231MR@VEC"), 
+                 fuel_type = "electricity",
+                 source = "vec")
+
+
+glimpse(agl)
+```
+
+You can also get all the plans from a specified retailer or all the plans available in the market. However, the code will take a long time to process the data in a clean format.
+
+```{r, eval=F, echo=T}
+
+agl_all <- read_eprd(retailer = "agl",
+                 planid = "all", 
+                 fuel_type = "all",
+                 source = "all")
+
+all_plans <- read_eprd(retailer = "all",
+                 planid = "all", 
+                 fuel_type = "all",
+                 source = "all")
+
+
+```

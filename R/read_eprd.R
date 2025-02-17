@@ -21,10 +21,11 @@ read_eprd <- function(retailer = NULL,
 
       message(paste0("Extracting plans from ",length(baseuris), " retailers"))
 
-      meta <- read_eprd_metadata(retailer = "all")
+      meta <- read_eprd_metadata(retailer = retailer, fuel_type = fuel_type)
 
     }else{
-      meta <- read_eprd_metadata(retailer = "all") %>%
+
+      meta <- read_eprd_metadata(retailer = retailer, fuel_type = fuel_type) %>%
         dplyr::filter(
           stringr::str_detect(planId, toupper(source))
         )
@@ -45,8 +46,15 @@ read_eprd <- function(retailer = NULL,
 
   }else{
 
-    ids <- planid
+    meta <- read_eprd_metadata(retailer = retailer, fuel_type = fuel_type) %>%
+      dplyr::filter(
+        stringr::str_detect(planId, toupper(source))
+      )
+
+    ids <- meta$planId
     ret <- retailer
+
+    message(paste0("Extracting ",length(ids)," plans from ",unique(length(ret)), " retailers"))
 
     plans <- purrr::map2(ids,
                          ret,

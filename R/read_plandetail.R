@@ -1,5 +1,6 @@
 
 
+
 # Call EPRD API --------------------------------------------------------
 
 # need  retailer base_uri and plan_id
@@ -77,11 +78,19 @@ plan_to_df <- function(base_uri, planid){
     purrr::discard(~ is.list(.x)) %>%
     dplyr::bind_rows() %>%
     dplyr::bind_cols(contract) %>%
-    dplyr::mutate(
-      distributor = distributor,
-      included_postcodes = postcodes,
-      contract = list(contract_details)
-    )
+    data.table::as.data.table() %>%
+    .[, ':=' (distributor = distributor,
+                  included_postcodes = postcodes,
+                  contract = list(contract_details)
+              )
+      ] %>%
+    dplyr::as_tibble()
+
+    # dplyr::mutate(
+    #   distributor = distributor,
+    #   included_postcodes = postcodes,
+    #   contract = list(contract_details)
+    # )
 
   return(plan_df)
 }
@@ -96,9 +105,11 @@ tidy_details_to_df <- function(result) {
     # suppress message of new names
     suppressMessages() %>%
     janitor::clean_names() %>%
-    tidyr::pivot_longer(cols = everything(),
-                 names_to = "variable",
-                 values_to = "value")
+    dtplyr::lazy_dt() %>%
+    tidyr::pivot_longer(cols = dplyr::everything(),
+                         names_to = "variable",
+                         values_to = "value") %>%
+    dplyr::as_tibble()
 
 
   }
@@ -110,8 +121,11 @@ read_eprd_plan <- function(base_uri,
                            ){
 
   plan <- plan_to_df(base_uri, planid) %>%
-    dplyr::mutate(contract = list(tidy_details_to_df(contract))
-    )
+    data.table::as.data.table() %>%
+    .[, ':=' (contract = list(tidy_details_to_df(contract)))
+      ] %>%
+    dplyr::as_tibble()
+    #dplyr::mutate(contract = list(tidy_details_to_df(contract)))
 
   return(plan)
 

@@ -1,7 +1,7 @@
 #' Download, extract, and tidy energy plan data
 #' #'
 #' @param retailer character. A retailer cdr brand name. See `readeprd::base_uris` for valid names.
-#' @param plandid (optional) character; default is "all". Supply an EME or VEFS offer
+#' @param planid (optional) character; default is "all". Supply an EME or VEFS offer
 #' identifier (such as `TAN617921MR@VEC`) to get only that plan.
 #' @param fuel_type character; default is "all". Other values are "electricity" and "gas".
 #' @param source character; default is "vec". Choose plans from Victorian Energy Compare or Energy Made Easy.
@@ -62,7 +62,12 @@ read_eprd <- function(retailer = NULL,
         stringr::str_detect(planId, toupper(source))
       )
 
-    ids <- planid
+    if (any(planid == "all")) {
+      ids <- meta$planId
+    }else{
+      ids <- planid
+    }
+
     ret <- retailer
     lplans <- dplyr::if_else(unique(length(ids)<=1), "plan","plans")
     lretailers <- dplyr::if_else(unique(length(ret)<=1), "retailer","retailers")

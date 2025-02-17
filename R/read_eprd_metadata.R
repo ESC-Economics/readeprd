@@ -1,14 +1,15 @@
 
 #' Reads retailer plan metadata in a single data frame
 #'
-#' #' @param retailer character. A retailer cdr brand name.
-#' See `readeprd::base_uris` for valid names.
+#' #' @param retailer character; default is "all". A retailer cdr brand name. See
+#' `readeprd::base_uris` for valid names.
 #' #' @param fuel_type character; default is "all". Other values are "electricity"
 #' and "gas".
 #'
 #'
+#' @return data
 #' @export
-
+#'
 
 read_eprd_metadata <- function(retailer = "all", fuel_type = "all"){
 

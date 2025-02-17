@@ -6,8 +6,11 @@
 \usage{
 read_eprd_metadata(retailer = "all", fuel_type = "all")
 }
+\value{
+data
+}
 \description{
-#' @param retailer character. A retailer cdr brand name.
+#' @param retailer character; default is "all". A retailer cdr brand name.
 See \code{readeprd::base_uris} for valid names.
 #' @param fuel_type character; default is "all". Other values are "electricity"
 and "gas".

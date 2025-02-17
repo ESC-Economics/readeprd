@@ -1,9 +1,8 @@
 Package: readeprd
-Title: What the Package Does (One Line, Title Case)
+Title: Read Energy Product Reference Data from Consumer Data Rights API
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+    person("Miguel", "Ayala", , "miguel.ayala@esc.vic.gov.au", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -14,4 +13,10 @@ Depends:
 LazyData: true
 Imports: 
     data.table,
-    dplyr
+    dplyr,
+    dtplyr,
+    httr2,
+    janitor,
+    purrr,
+    stringr,
+    tidyr

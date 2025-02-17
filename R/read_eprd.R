@@ -62,11 +62,13 @@ read_eprd <- function(retailer = NULL,
         stringr::str_detect(planId, toupper(source))
       )
 
-    ids <- meta$planId
+    ids <- planid
     ret <- retailer
+    lplans <- dplyr::if_else(unique(length(ids)<=1), "plan","plans")
+    lretailers <- dplyr::if_else(unique(length(ret)<=1), "retailer","retailers")
 
     message(
-      paste("Extracting",length(ids),"plans from",unique(length(ret)), dplyr::if_else(unique(length(ret)<=1), "retailer","retailers"),
+      paste("Extracting",length(ids),lplans,"from",unique(length(ret)),lretailers,
             sep = " ")
       )
 

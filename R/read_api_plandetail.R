@@ -2,6 +2,7 @@
 #' @param base_uri character. A retailer cdr brand name. See `readeprd::base_uris` for valid names.
 #' @param planid character; Supply an EME or VEFS offer identifier
 #'
+#' @export
 
 # need  retailer base_uri and plan_id
 

@@ -1,12 +1,15 @@
 #' Download, extract, and tidy AER Energy plan metadata
-
-
-# function to store base url
-get_base_url <- function() {
-  "https://cdr.energymadeeasy.gov.au/"
-}
-
-
+#'
+#' @param api_uri character. Supply retailer uniform resource identifier.
+#' @param offer_type character; default is "all". Other values are "standing",
+#' "market" and "regulated"
+#' @param fuel_type character; default is "all". Other values are "gas",
+#' "electricity" and "dual"
+#' @param effective  character; default is "all". Other values are "current" and
+#' "future"
+#'
+#'
+#' @export
 
 # function to call api
 call_eprd_api <- function(api_uri,
@@ -49,73 +52,13 @@ call_eprd_api <- function(api_uri,
 }
 
 
-
-# function that cleans individual plan metadata
-planmeta_to_df <- function(plan){
-
-  distributor <- plan$geography$distributors %>% stringr::str_c(., collapse = ", ")
-  postcodes <- plan$geography$includedPostcodes %>% stringr::str_c(., collapse = ", ")
-
-  plan_df <- plan %>%
-    purrr::discard(~ is.list(.x)) %>%
-    dplyr::bind_rows() %>%
-    dplyr::mutate(
-      distributor = distributor,
-      included_postcodes = postcodes
-    )
-
-  return(plan_df)
-
+# function to store base url
+get_base_url <- function() {
+  "https://cdr.energymadeeasy.gov.au/"
 }
 
 
 
-# function that cleans retailer plans metadata
-tidy_planmeta_to_df <- function(baseuris, fuel_type = "all"){
-
-  plan_list <- call_eprd_api(api_uri = baseuris,
-                             fuel_type = fuel_type)$data$plans
-
-  plan_df <- plan_list %>%
-    purrr::map(
-      planmeta_to_df
-    ) %>%
-    dplyr::bind_rows()
-
-  return(plan_df)
-
-
-}
-
-
-# function that reads retailer plan metadata in a single data frame
-read_eprd_metadata <- function(retailer = "all", fuel_type = "all"){
-
-  if (retailer == "all") {
-
-    baseuris <- base_uris$cdr_brand
-
-    d <- purrr::map(
-      baseuris,
-      \(x) tidy_planmeta_to_df(baseuris = x, fuel_type = fuel_type)
-    ) %>%
-      dplyr::bind_rows()
-
-    return(d)
-
-  }else{
-
-    d <- purrr::map(
-      retailer,
-      \(x) tidy_planmeta_to_df(baseuris = x, fuel_type = fuel_type)
-    ) %>%
-      dplyr::bind_rows()
-
-    return(d)
-
-  }
-
-}
 
 
 

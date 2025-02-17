@@ -2,8 +2,7 @@
 % Please edit documentation in R/read_eprd.R
 \name{read_eprd}
 \alias{read_eprd}
-\title{Download, extract, and tidy energy plan data
-#'}
+\title{Download, extract, and tidy energy plan data}
 \usage{
 read_eprd(retailer = NULL, planid = "all", fuel_type = "all", source = "vec")
 }
@@ -23,5 +22,4 @@ data
 }
 \description{
 Download, extract, and tidy energy plan data
-#'
 }

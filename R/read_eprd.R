@@ -1,5 +1,5 @@
 #' Download, extract, and tidy energy plan data
-#' #'
+#'
 #' @param retailer character. A retailer cdr brand name. See `readeprd::base_uris` for valid names.
 #' @param planid (optional) character; default is "all". Supply an EME or VEFS offer
 #' identifier (such as `TAN617921MR@VEC`) to get only that plan.

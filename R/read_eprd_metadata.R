@@ -1,9 +1,9 @@
 
 #' Reads retailer plan metadata in a single data frame
 #'
-#' #' @param retailer character; default is "all". A retailer cdr brand name. See
+#' @param retailer character; default is "all". A retailer cdr brand name. See
 #' `readeprd::base_uris` for valid names.
-#' #' @param fuel_type character; default is "all". Other values are "electricity"
+#' @param fuel_type character; default is "all". Other values are "electricity"
 #' and "gas".
 #'
 #'

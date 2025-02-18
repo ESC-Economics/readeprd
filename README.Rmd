@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-The purpose of `readeprd` is to provide access to Consumer Data Rights API so that retail energy plans from AER can be accessed directly from R. For details about what data are provided by the CDR see [here](https://consumerdatastandardsaustralia.github.io/standards/#cdr-energy-api_get-generic-plans).
+The purpose of `readeprd` is to provide access to Consumer Data Rights API so that retail energy plans from AER can be accessed directly from R. For details about what data are provided by the CDR see [here](https://consumerdatastandardsaustralia.github.io/standards/#cdr-energy-api_get-generic-plans). For details about AER as data holder see [here](https://www.aer.gov.au/energy-product-reference-data)
 
 ## Installation
 

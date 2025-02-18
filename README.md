@@ -16,6 +16,8 @@ The purpose of `readeprd` is to provide access to Consumer Data Rights
 API so that retail energy plans from AER can be accessed directly from
 R. For details about what data are provided by the CDR see
 [here](https://consumerdatastandardsaustralia.github.io/standards/#cdr-energy-api_get-generic-plans).
+For details about AER as data holder see
+[here](https://www.aer.gov.au/energy-product-reference-data)
 
 ## Installation
 
@@ -49,7 +51,7 @@ library(dplyr)
 plans <- read_eprd_metadata(retailer = "all")
 
 glimpse(plans)
-#> Rows: 13,402
+#> Rows: 13,543
 #> Columns: 12
 #> $ type               <chr> "MARKET", "MARKET", "MARKET", "MARKET", "STANDING",…
 #> $ brand              <chr> "1st-energy", "1st-energy", "1st-energy", "1st-ener…

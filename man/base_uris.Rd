@@ -8,8 +8,9 @@
 A data frame:
 \describe{
 \item{retailer_name}{Name of the energy retailer}
-\item{retailer_base_uri}{URI for API}}
+\item{retailer_base_uri}{URI for API}
 \item{cdr_brand}{URI name for API}
+}
 }
 \usage{
 base_uris

@@ -10,6 +10,8 @@ read_eprd_plan <- function(base_uri,
                            planid
 ){
 
+  contract <- NULL
+
   plan <- plan_to_df(base_uri, planid) %>%
     data.table::as.data.table() %>%
     .[, ':=' (contract = list(tidy_details_to_df(contract)))

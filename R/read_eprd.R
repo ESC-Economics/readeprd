@@ -18,6 +18,8 @@ read_eprd <- function(retailer = NULL,
                       source = "vec"
 ){
 
+  base_uris <- planId <- NULL
+
   if (is.null(retailer)) {
     stop("The `retailer` argument to `read_eprd()` must be provided.")
   }

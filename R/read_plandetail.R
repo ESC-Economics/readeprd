@@ -23,10 +23,9 @@ read_eprd_plan <- function(base_uri,
 
 
 
+#' @keywords internal
+#' function that clean retailer plans and adds plan details into a list
 
-# function that clean retailer plans and adds plan details into a list
-
-# need retailer base_uri and plan_id
 plan_to_df <- function(base_uri, planid){
 
   #extract the plan contract details
@@ -75,17 +74,12 @@ plan_to_df <- function(base_uri, planid){
       ] %>%
     dplyr::as_tibble()
 
-    # dplyr::mutate(
-    #   distributor = distributor,
-    #   included_postcodes = postcodes,
-    #   contract = list(contract_details)
-    # )
-
   return(plan_df)
 }
 
 
-
+#' @keywords internal
+#' function that cleans retailer plans details
 tidy_details_to_df <- function(result) {
   result |>
     purrr::map(unlist) |>

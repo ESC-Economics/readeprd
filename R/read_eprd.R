@@ -12,8 +12,6 @@
 #'
 
 
-
-# nest contract details into the plan id
 read_eprd <- function(retailer = NULL,
                       planid = "all",
                       fuel_type = "all",

@@ -40,8 +40,8 @@ read_eprd_metadata <- function(retailer = "all", fuel_type = "all"){
 }
 
 
-
-# function that cleans individual plan metadata
+#' @keywords internal
+#' function that cleans individual plan metadata
 planmeta_to_df <- function(plan){
 
   distributor <- plan$geography$distributors %>% stringr::str_c(., collapse = ", ")
@@ -60,8 +60,8 @@ planmeta_to_df <- function(plan){
 }
 
 
-
-# function that cleans retailer plans metadata
+#' @keywords internal
+#' function that cleans retailer plans metadata
 tidy_planmeta_to_df <- function(baseuris, fuel_type = "all"){
 
   plan_list <- call_eprd_api(api_uri = baseuris,

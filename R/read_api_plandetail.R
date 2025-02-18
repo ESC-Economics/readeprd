@@ -4,8 +4,6 @@
 #'
 #' @export
 
-# need  retailer base_uri and plan_id
-
 call_eprd_api_plandetail <- function(base_uri, planid){
 
   # Create the base request

@@ -7,4 +7,7 @@
 ## usethis namespace: end
 NULL
 
-utils::globalVariables(".")
+utils::globalVariables(
+  c(".",
+    "base_uris")
+  )

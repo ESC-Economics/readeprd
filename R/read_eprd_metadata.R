@@ -13,7 +13,7 @@
 
 read_eprd_metadata <- function(retailer = "all", fuel_type = "all"){
 
-  base_uris <- NULL
+  #base_uris <- NULL
 
   if (retailer == "all") {
 

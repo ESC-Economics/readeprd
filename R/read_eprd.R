@@ -15,7 +15,7 @@
 read_eprd <- function(retailer = NULL,
                       planid = "all",
                       fuel_type = "all",
-                      source = "vec"
+                      source = NULL
 ){
 
   base_uris <- planId <- NULL
@@ -24,29 +24,34 @@ read_eprd <- function(retailer = NULL,
     stop("The `retailer` argument to `read_eprd()` must be provided.")
   }
 
-  if ((retailer == "all" && planid == "all")) {
+  if (all(retailer == "all" & planid == "all")) {
 
     baseuris <- base_uris$cdr_brand
 
-    if (source == "all") {
+    if (is.null(source)) {
 
-      message(paste0("Extracting plans from ",length(baseuris), " retailers"))
+      message(
+        paste0("Extracting plans from ",length(baseuris), " retailers")
+        )
 
       meta <- read_eprd_metadata(retailer = retailer, fuel_type = fuel_type)
 
     }else{
 
+      # if source!="all" filter metadata based on source arg.
       meta <- read_eprd_metadata(retailer = retailer, fuel_type = fuel_type) %>%
         dplyr::filter(
           stringr::str_detect(planId, toupper(source))
         )
     }
 
+    # if retailer == "all" && planid == "all"
     ids <- meta$planId
     ret <- meta$brand
 
-    message(paste0("Extracting ",length(ids)," plans from ",unique(length(ret)), " retailers"))
+    message(paste0("Extracting ",length(ids)," plans from ",length(unique(ret)), " retailers"))
 
+    # run iteration
     plans <- purrr::map2(ids,
                     ret,
                     \(x, y) read_eprd_plan(base_uri =  y, planid =  x)
@@ -57,23 +62,28 @@ read_eprd <- function(retailer = NULL,
 
   }else{
 
-    meta <- read_eprd_metadata(retailer = retailer, fuel_type = fuel_type) %>%
+    user_retailer <- retailer
+
+    # if retailer provided, then run loop to extract ids
+    meta <- read_eprd_metadata(retailer = user_retailer, fuel_type = fuel_type) %>%
       dplyr::filter(
         stringr::str_detect(planId, toupper(source))
       )
 
+
     if (any(planid == "all")) {
       ids <- meta$planId
+      ret <- meta$brand
     }else{
       ids <- planid
+      ret <- retailer
     }
 
-    ret <- retailer
     lplans <- dplyr::if_else(unique(length(ids)<=1), "plan","plans")
     lretailers <- dplyr::if_else(unique(length(ret)<=1), "retailer","retailers")
 
     message(
-      paste("Extracting",length(ids),lplans,"from",unique(length(ret)),lretailers,
+      paste("Extracting",length(ids),lplans,"from",length(unique(ret)),lretailers,
             sep = " ")
       )
 

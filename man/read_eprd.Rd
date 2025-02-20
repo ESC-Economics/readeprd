@@ -4,7 +4,7 @@
 \alias{read_eprd}
 \title{Download, extract, and tidy energy plan data}
 \usage{
-read_eprd(retailer = NULL, planid = "all", fuel_type = "all", source = "vec")
+read_eprd(retailer = NULL, planid = "all", fuel_type = "all", source = NULL)
 }
 \arguments{
 \item{retailer}{character. A retailer cdr brand name. See \code{readeprd::base_uris} for valid names.}

@@ -24,12 +24,16 @@ read_eprd <- function(retailer = NULL,
     stop("The `retailer` argument to `read_eprd()` must be provided.")
   }
 
+  if (is.null(source)) {
+
+    stop("The `source` argument to `read_eprd()` must be provided.")
+  }
+
   if (all(retailer == "all" & planid == "all")) {
 
     baseuris <- base_uris$cdr_brand
 
-    if (is.null(source)) {
-
+    if (identical(source, "all")) {
       message(
         paste0("Extracting plans from ",length(baseuris), " retailers")
         )
@@ -54,9 +58,9 @@ read_eprd <- function(retailer = NULL,
     # run iteration
     plans <- purrr::map2(ids,
                     ret,
-                    \(x, y) read_eprd_plan(base_uri =  y, planid =  x)
+                    purrr::possibly(\(x, y) read_eprd_plan(base_uri =  y, planid =  x), NULL)
                    ) %>%
-        dplyr::bind_rows()
+      purrr::list_rbind()
 
     return(plans)
 
@@ -89,9 +93,9 @@ read_eprd <- function(retailer = NULL,
 
     plans <- purrr::map2(ids,
                          ret,
-                         \(x, y) read_eprd_plan(base_uri =  y, planid =  x)
-    ) %>%
-      dplyr::bind_rows()
+                         purrr::possibly(\(x, y) read_eprd_plan(base_uri =  y, planid =  x), NULL)
+                         ) %>%
+      purrr::list_rbind()
 
     return(plans)
 

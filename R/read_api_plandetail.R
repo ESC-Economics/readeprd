@@ -29,5 +29,10 @@ call_eprd_api_plandetail <- function(base_uri, planid){
   # Return the parsed content of the response
   httr2::resp_body_json(resp_plandetail)
 
+  #return NA if request not found
+  # resp_plandetail <- check_resp(resp_plandetail)
+  #
+  # return(resp_plandetail)
+
 }
 
